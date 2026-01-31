@@ -1,0 +1,107 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Rotina & Treinos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1 id="currentDate"></h1>
+</header>
+
+<nav>
+  <button data-tab="agenda" class="active">📅<span>Agenda</span></button>
+  <button data-tab="routine">🏋️<span>Rotina</span></button>
+  <button data-tab="trainings">📋<span>Treinos</span></button>
+</nav>
+
+<main>
+
+  <!-- AGENDA -->
+  <section id="agenda" class="tab active">
+    <div class="calendar-header">
+      <button onclick="changeMonth(-1)">◀</button>
+      <h2 id="monthLabel"></h2>
+      <button onclick="changeMonth(1)">▶</button>
+    </div>
+
+    <div id="calendar" class="calendar"></div>
+
+    <div class="agenda-footer">
+      <h3 id="selectedDateLabel"></h3>
+      <button onclick="openEventModal()">➕ Novo compromisso</button>
+      <div id="eventList"></div>
+    </div>
+  </section>
+
+  <!-- ROTINA -->
+  <section id="routine" class="tab">
+    <h2>🏋️ Treino do Dia</h2>
+    <div id="workoutOfDay" class="workout-card"></div>
+    <button onclick="completeWorkout()">✅ Concluir Treino</button>
+
+    <div class="streak-card">
+      <strong>🔥 Streak semanal</strong>
+      <div class="streak-bar">
+        <div id="streakFill"></div>
+      </div>
+      <small id="streakText">0 / 7 dias</small>
+    </div>
+  </section>
+
+  <!-- TREINOS -->
+  <section id="trainings" class="tab">
+    <div class="header-inline">
+      <h2>📋 Meus Treinos</h2>
+      <button onclick="openTrainingModal()">➕ Novo Treino</button>
+    </div>
+    <div id="trainingList"></div>
+  </section>
+
+</main>
+
+<!-- MODAL AGENDA -->
+<div id="eventModal" class="modal-overlay">
+  <div class="modal">
+    <h3 id="eventModalTitle"></h3>
+
+    <input id="eventTitle" placeholder="Compromisso">
+    <input id="eventTime" type="time">
+
+    <div class="modal-actions">
+      <button onclick="saveEvent()">💾 Salvar</button>
+      <button onclick="closeEventModal()">❌ Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL TREINO -->
+<div id="trainingModal" class="modal-overlay">
+  <div class="modal">
+    <h3 id="trainingModalTitle"></h3>
+
+    <input id="trainingName" placeholder="Nome do treino">
+
+    <h4>Exercícios</h4>
+    <div id="exerciseList"></div>
+
+    <!-- botão central -->
+    <div class="center">
+      <button onclick="addExercise()">➕ Exercício</button>
+    </div>
+
+    <!-- ações lado a lado -->
+    <div class="modal-actions">
+      <button onclick="saveTraining()">💾 Salvar</button>
+      <button onclick="closeTrainingModal()">❌ Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+</body>
+</html>

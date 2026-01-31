@@ -1,0 +1,243 @@
+/* ===== RESET / BASE ===== */
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f5f7f6;
+  color: #333;
+
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== HEADER ===== */
+
+header {
+  text-align: center;
+  padding: 14px;
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* ===== NAV ===== */
+
+nav {
+  display: flex;
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+nav button {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+nav button span {
+  display: block;
+  font-size: 12px;
+}
+
+nav button.active {
+  color: #00a870;
+  border-bottom: 3px solid #00a870;
+  font-weight: bold;
+}
+
+/* ===== TABS ===== */
+
+.tab {
+  display: none;
+  padding: 16px;
+}
+
+.tab.active {
+  display: block;
+}
+
+/* ===== CALENDÁRIO ===== */
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.day {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  padding: 10px 0;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.day:hover {
+  border-color: #00a870;
+}
+
+.day.selected {
+  background: #e6f6f0;
+  border-color: #00a870;
+  font-weight: bold;
+}
+
+.day.has-event::after {
+  content: "•";
+  display: block;
+  color: #00a870;
+  font-size: 18px;
+  line-height: 10px;
+}
+
+/* ===== AGENDA / EVENTOS ===== */
+
+#selectedDateLabel {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+#eventList > div {
+  background: #ffffff;
+  border-left: 4px solid #00a870;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+.event-actions {
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+}
+
+.event-actions button {
+  background: #00a870;
+  color: #ffffff;
+  border: none;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* ===== BOTÕES ===== */
+
+button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+button.primary {
+  background: #00a870;
+  color: #ffffff;
+}
+
+button.primary:hover {
+  background: #00915f;
+}
+
+button.danger {
+  background: #e25c5c;
+  color: #ffffff;
+}
+
+/* ===== CARDS DE TREINO ===== */
+
+.workout-card {
+  background: #ffffff;
+  border-left: 4px solid #00a870;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.workout-card h3 {
+  margin: 0 0 6px;
+}
+
+.exercise {
+  font-size: 0.9em;
+  margin-left: 10px;
+  opacity: 0.85;
+}
+
+/* ===== MODAL OVERLAY (CENTRALIZAÇÃO REAL) ===== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+/* ===== MODAL ===== */
+
+.modal {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 420px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal h2 {
+  color: #00a870;
+  margin-top: 0;
+  text-align: center;
+}
+
+/* ===== CONTEÚDO DO MODAL ===== */
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ===== BOTÕES DO MODAL (PIRÂMIDE) ===== */
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.modal-actions button {
+  width: 120px;
+}
+
+/* ===== INPUTS ===== */
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
