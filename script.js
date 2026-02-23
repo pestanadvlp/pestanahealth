@@ -212,6 +212,7 @@ function addExercise(data = {}) {
 }
 
 function saveTraining() {
+  console.log("FUNÇÃO SAVE FOI CHAMADA");
   const name = document.getElementById("trainingName").value.trim();
   if (!name) return alert("Nome obrigatório");
 
