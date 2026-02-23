@@ -238,13 +238,6 @@ function saveTraining() {
   closeTrainingModal();
   renderTrainings();
   renderWorkoutOfDay();
-}
-  
-  localStorage.setItem("trainings", JSON.stringify(trainings));
-  closeTrainingModal();
-  renderTrainings();
-  renderWorkoutOfDay(); // ← adiciona essa linha
-  }
 
 function deleteTraining(id) {
   if (!confirm("Remover este treino?")) return;
