@@ -219,7 +219,7 @@ function saveTraining() {
   const exercises = [...document.querySelectorAll("#exerciseList .exercise")].map(e => {
     const i = e.querySelectorAll("input");
     return { 
-      name: i[0]?.value saveTraining()|| "", 
+      name: i[0]?.value || "", 
       series: i[1]?.value || "", 
       reps: i[2]?.value || "" 
     };
