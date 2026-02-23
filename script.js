@@ -216,7 +216,7 @@ function saveTraining() {
   const name = document.getElementById("trainingName").value.trim();
   if (!name) return alert("Nome obrigatório");
 
-  const exercises = [...document.querySelectorAll(".exercise")].map(e => {
+  const exercises = [...document.querySelectorAll("#exerciseList .exercise")].map(e => {
     const i = e.querySelectorAll("input");
     return { name: i[0].value, series: i[1].value, reps: i[2].value };
   });
