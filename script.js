@@ -212,13 +212,16 @@ function addExercise(data = {}) {
 }
 
 function saveTraining() {
-  console.log("FUNÇÃO SAVE FOI CHAMADA");
   const name = document.getElementById("trainingName").value.trim();
   if (!name) return alert("Nome obrigatório");
 
   const exercises = [...document.querySelectorAll("#exerciseList .exercise")].map(e => {
     const i = e.querySelectorAll("input");
-    return { name: i[0].value, series: i[1].value, reps: i[2].value };
+    return { 
+      name: i[0]?.value || "", 
+      series: i[1]?.value || "", 
+      reps: i[2]?.value || "" 
+    };
   });
 
   if (editingTrainingId !== null) {
@@ -230,6 +233,12 @@ function saveTraining() {
   } else {
     trainings.push({ id: Date.now(), name, exercises });
   }
+
+  localStorage.setItem("trainings", JSON.stringify(trainings));
+  closeTrainingModal();
+  renderTrainings();
+  renderWorkoutOfDay();
+}
   
   localStorage.setItem("trainings", JSON.stringify(trainings));
   closeTrainingModal();
