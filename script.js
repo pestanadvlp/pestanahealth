@@ -180,7 +180,7 @@ function openTrainingModal(trainingId = null) {
   document.getElementById("exerciseList").innerHTML = "";
   document.getElementById("trainingName").value = "";
 
-  editingTrainingId = trainingId;
+  editingTrainingId = trainingId !== null ? Number(trainingId) : null;
 
   const title = document.getElementById("trainingModalTitle");
 
@@ -229,11 +229,12 @@ function saveTraining() {
   } else {
     trainings.push({ id: Date.now(), name, exercises });
   }
-
+  
   localStorage.setItem("trainings", JSON.stringify(trainings));
   closeTrainingModal();
   renderTrainings();
-}
+  renderWorkoutOfDay(); // ← adiciona essa linha
+  }
 
 function deleteTraining(id) {
   if (!confirm("Remover este treino?")) return;
