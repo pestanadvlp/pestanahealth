@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.querySelectorAll("nav button").forEach(btn => {
   btn.onclick = () => {
 
-    closeAllModals(); // ✅ AGORA FUNCIONA DE VERDADE
+    closeAllModals();
 
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
@@ -47,7 +47,6 @@ function closeAllModals() {
     if (m) m.style.display = "none";
   });
 
-  // limpa estados de edição (importante!)
   editingTrainingId = null;
   editingEvent = null;
 }
@@ -185,7 +184,7 @@ function openTrainingModal(trainingId = null) {
 
   const title = document.getElementById("trainingModalTitle");
 
-  if (trainingId) {
+  if (trainingId !== null) {  // ✅ corrigido
     const t = trainings.find(x => x.id === trainingId);
     if (!t) return;
     title.innerText = "Editar Treino";
@@ -221,7 +220,7 @@ function saveTraining() {
     return { name: i[0].value, series: i[1].value, reps: i[2].value };
   });
 
-  if (editingTrainingId) {
+  if (editingTrainingId !== null) {
     const t = trainings.find(x => x.id === editingTrainingId);
     if (t) {
       t.name = name;
