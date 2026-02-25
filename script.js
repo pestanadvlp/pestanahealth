@@ -207,6 +207,7 @@ function addExercise(data = {}) {
     <input placeholder="Exercício" value="${data.name || ""}">
     <input placeholder="Séries" value="${data.series || ""}">
     <input placeholder="Reps" value="${data.reps || ""}">
+    <input placeholder="Carga" value="${data.weight || ""}">
   `;
   document.getElementById("exerciseList").appendChild(div);
 }
@@ -221,7 +222,8 @@ function saveTraining() {
     return { 
       name: i[0]?.value || "", 
       series: i[1]?.value || "", 
-      reps: i[2]?.value || "" 
+      reps: i[2]?.value || "", 
+      weight: i[2]?.value || "" 
     };
   });
 
