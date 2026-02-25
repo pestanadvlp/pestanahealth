@@ -205,9 +205,9 @@ function addExercise(data = {}) {
   div.className = "exercise";
   div.innerHTML = `
     <input placeholder="Exercício" value="${data.name || ""}">
-    <input placeholder="Séries" value="${data.series || ""}">
-    <input placeholder="Reps" value="${data.reps || ""}">
-    <input placeholder="Carga" value="${data.weight || ""}">
+    <input placeholder="Séries" type="number" value="${data.series || ""}">
+    <input placeholder="Reps" type="number" value="${data.reps || ""}">
+    <input placeholder="Carga (kg)" type="number" step="0.5" value="${data.load || ""}">
   `;
   document.getElementById("exerciseList").appendChild(div);
 }
@@ -223,7 +223,7 @@ function saveTraining() {
       name: i[0]?.value || "", 
       series: i[1]?.value || "", 
       reps: i[2]?.value || "", 
-      weight: i[2]?.value || "" 
+      load: i[3]?.value || "" 
     };
   });
 
@@ -262,7 +262,12 @@ function renderTrainings() {
     div.className = "workout-card";
     div.innerHTML = `
       <h3>${t.name}</h3>
-      ${t.exercises.map(e => `<div class="exercise">${e.name} — ${e.series}x${e.reps}</div>`).join("")}
+      ${t.exercises.map(e => `
+      <div class="exercise">
+      ${e.name} — ${e.series}x${e.reps}
+      ${e.load ? ` • ${e.load}kg` : ""}
+      </div>
+      `).join("")}
       <div class="workout-actions">
         <button onclick="openTrainingModal(${t.id})">Editar</button>
         <button onclick="deleteTraining(${t.id})">Excluir</button>
@@ -287,11 +292,16 @@ function renderWorkoutOfDay() {
   const workout = trainings[todayIndex];
 
   box.innerHTML = `
-    <h3>${workout.name}</h3>
-    ${workout.exercises.map(e => `<div class="exercise">${e.name} — ${e.series}x${e.reps}</div>`).join("")}
-  `;
+  <h3>${workout.name}</h3>
+  ${workout.exercises.map(e => `
+    <div class="exercise">
+      ${e.name} — ${e.series}x${e.reps}
+      ${e.load ? ` • ${e.load}kg` : ""}
+    </div>
+  `).join("")}
+`;
 }
-
+  
 /*============= SERVICE WORKER ============= */
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
