@@ -23,9 +23,54 @@
   <button data-tab="agenda" class="active">📅<span>Agenda</span></button>
   <button data-tab="routine">🏋️<span>Rotina</span></button>
   <button data-tab="trainings">📋<span>Treinos</span></button>
+  <button data-tab="profile">👤<span>Perfil</span></button>
 </nav>
 
+<div id="loginScreen" class="login-screen">
+  <div class="login-container">
+
+    <div class="logo-area">
+      <div class="logo-icon">🏃</div>
+      <h1>PR+</h1>
+    </div>
+
+    <div class="input-group">
+      <span>👤</span>
+      <input id="loginUser" placeholder="Nome de Usuário">
+    </div>
+
+    <div class="input-group">
+      <span>🔒</span>
+      <input id="loginPass" type="password" placeholder="Senha">
+    </div>
+
+    <a class="forgot">Esqueci a senha</a>
+
+    <button class="btn-primary" onclick="login()">Entrar</button>
+    <button class="btn-secondary" onclick="register()">Cadastre-se</button>
+
+  </div>
+</div>
+
 <main>
+
+  <!-- PERFIL -->
+  <section id="profile" class="tab">
+    <h2>👤 Meu Perfil</h2>
+    
+    <div class="profile-card">
+
+      <div class="avatar-container">
+        <img id="profileAvatar" src="icons/icon-192.png">
+        <input type="file" id="avatarInput" accept="image/*">
+      </div>
+
+    <h3 id="profileName"></h3>
+
+    <button onclick="logout()">🚪 Sair</button>
+
+    </div>
+  </section>
 
   <!-- AGENDA -->
   <section id="agenda" class="tab active">
@@ -108,7 +153,6 @@
   </div>
 </div>
 
-<link rel="stylesheet" href="style.css">
 <script src="script.js"></script>
 </body>
 </html>

@@ -1,3 +1,89 @@
+/* ================= LOGIN ================= */
+
+let users = JSON.parse(localStorage.getItem("users")) || {};
+let currentUser = null;
+
+function register() {
+  const user = document.getElementById("loginUser").value.trim();
+  const pass = document.getElementById("loginPass").value.trim();
+
+  if (!user || !pass) {
+    alert("Preencha usuário e senha");
+    return;
+  }
+
+  if (users[user]) {
+    alert("Usuário já existe");
+    return;
+  }
+
+  users[user] = {
+    password: pass,
+    createdAt: Date.now()
+  };
+
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Usuário criado com sucesso!");
+}
+
+function login() {
+  const user = document.getElementById("loginUser").value.trim();
+  const pass = document.getElementById("loginPass").value.trim();
+
+  if (!users[user] || users[user].password !== pass) {
+    alert("Usuário ou senha inválidos");
+    return;
+  }
+
+  currentUser = user;
+
+  // salva sessão
+  localStorage.setItem("sessionUser", user);
+
+  document.getElementById("loginScreen").style.display = "none";
+
+  initializeUserData();
+}
+
+function logout() {
+  localStorage.removeItem("sessionUser");
+  currentUser = null;
+  document.getElementById("loginScreen").style.display = "flex";
+}
+
+function initializeUserData() {
+  console.log("Usuário logado:", currentUser);
+
+  document.getElementById("profileName").innerText = currentUser;
+
+  loadUserProfile();
+}
+
+function loadUserProfile() {
+  const userData = users[currentUser];
+
+  if (!userData.avatar) return;
+
+  document.getElementById("profileAvatar").src = userData.avatar;
+}
+
+document.addEventListener("change", function (e) {
+  if (e.target.id === "avatarInput") {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      users[currentUser].avatar = event.target.result;
+      localStorage.setItem("users", JSON.stringify(users));
+      loadUserProfile();
+    };
+
+    reader.readAsDataURL(file);
+  }
+});
+
 /* ================= UTIL ================= */
 
 function toISODate(year, month, day) {
@@ -14,6 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
       month: "long",
       year: "numeric"
     });
+
+  const savedUser = localStorage.getItem("sessionUser");
+
+    if (savedUser && users[savedUser]) {
+      currentUser = savedUser;
+      document.getElementById("loginScreen").style.display = "none";
+      initializeUserData();
+}
 
   renderCalendar();
   renderWorkoutOfDay();
@@ -154,7 +248,8 @@ function saveEvent() {
   if (editingEvent === null) events[selectedDate].push(data);
   else events[selectedDate][editingEvent] = data;
 
-  localStorage.setItem("events", JSON.stringify(events));
+  users[currentUser].events = events;
+  localStorage.setItem("users", JSON.stringify(users));
   closeEventModal();
   renderCalendar();
 }
@@ -166,7 +261,8 @@ function editEvent(index) {
 function removeEvent(index) {
   events[selectedDate].splice(index, 1);
   if (!events[selectedDate].length) delete events[selectedDate];
-  localStorage.setItem("events", JSON.stringify(events));
+  users[currentUser].events = events;
+  localStorage.setItem("users", JSON.stringify(users));
   renderCalendar();
 }
 
@@ -237,7 +333,8 @@ function saveTraining() {
     trainings.push({ id: Date.now(), name, exercises });
   }
 
-  localStorage.setItem("trainings", JSON.stringify(trainings));
+  users[currentUser].trainings = trainings;
+  localStorage.setItem("users", JSON.stringify(users));
   closeTrainingModal();
   renderTrainings();
   renderWorkoutOfDay();
@@ -246,7 +343,8 @@ function saveTraining() {
 function deleteTraining(id) {
   if (!confirm("Remover este treino?")) return;
   trainings = trainings.filter(t => t.id !== id);
-  localStorage.setItem("trainings", JSON.stringify(trainings));
+  users[currentUser].trainings = trainings;
+  localStorage.setItem("users", JSON.stringify(users));
   renderTrainings();
   renderWorkoutOfDay();
 }
@@ -302,6 +400,10 @@ function renderWorkoutOfDay() {
 `;
 }
   
+  function completeWorkout() {
+  alert("Função ainda não implementada");
+}
+
 /*============= SERVICE WORKER ============= */
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
